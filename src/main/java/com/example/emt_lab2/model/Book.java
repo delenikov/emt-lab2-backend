@@ -20,6 +20,7 @@ public class Book {
 
     @ManyToOne
     private Author author;
+
     private Integer availableCopies;
 
     public Book(String name, Category category, Author author, Integer availableCopies) {

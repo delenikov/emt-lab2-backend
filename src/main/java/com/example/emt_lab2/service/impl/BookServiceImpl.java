@@ -43,11 +43,11 @@ public class BookServiceImpl implements BookService {
     @Override
     @Transactional
     public Optional<Book> save(String name, String categoryName, Long authorId, Integer availableCopies) {
-       Category category = Category.valueOf(categoryName);
-       Author author = this.authorRepository.findById(authorId).orElseThrow(()-> new AuthorNotFound(authorId));
-       Book book = new Book(name, category, author, availableCopies);
-       this.bookRepository.save(book);
-       return Optional.of(book);
+        Category category = Category.valueOf(categoryName);
+        Author author = this.authorRepository.findById(authorId).orElseThrow(() -> new AuthorNotFound(authorId));
+        Book book = new Book(name, category, author, availableCopies);
+        this.bookRepository.save(book);
+        return Optional.of(book);
     }
 
     @Override
@@ -68,7 +68,7 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public Optional<Book> edit(Long id, BookDto bookDto) {
-        Book book = this.bookRepository.findById(id).orElseThrow(()-> new BookNotFound(id));
+        Book book = this.bookRepository.findById(id).orElseThrow(() -> new BookNotFound(id));
         Category category = Category.valueOf(bookDto.getCategory());
         Author author = this.authorRepository.findById(bookDto.getAuthor()).orElseThrow(() -> new AuthorNotFound(bookDto.getAuthor()));
         book.setName(bookDto.getName());
@@ -81,18 +81,18 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public void deleteById(Long id) {
-        if(this.bookRepository.findById(id).isPresent()){
+        if (this.bookRepository.findById(id).isPresent()) {
             this.bookRepository.deleteById(id);
         }
     }
 
     @Override
     public Optional<Book> markAsTakenById(Long id) {
-        Book book = this.bookRepository.findById(id).orElseThrow(()-> new BookNotFound(id));
-        book.setAvailableCopies(book.getAvailableCopies() - 1);
-        this.bookRepository.save(book);
+        Book book = this.bookRepository.findById(id).orElseThrow(() -> new BookNotFound(id));
+        if (book.getAvailableCopies() > 0) {
+            book.setAvailableCopies(book.getAvailableCopies() - 1);
+            this.bookRepository.save(book);
+        }
         return Optional.of(book);
     }
-
-
 }
