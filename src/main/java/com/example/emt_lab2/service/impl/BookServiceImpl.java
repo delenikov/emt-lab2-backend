@@ -8,7 +8,6 @@ import com.example.emt_lab2.model.Book;
 import com.example.emt_lab2.model.dto.BookDto;
 import com.example.emt_lab2.repository.AuthorRepository;
 import com.example.emt_lab2.repository.BookRepository;
-import com.example.emt_lab2.repository.CountryRepository;
 import com.example.emt_lab2.service.BookService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,12 +19,10 @@ public class BookServiceImpl implements BookService {
 
     private final BookRepository bookRepository;
     private final AuthorRepository authorRepository;
-    private final CountryRepository countryRepository;
 
-    public BookServiceImpl(BookRepository bookRepository, AuthorRepository authorRepository, CountryRepository countryRepository) {
+    public BookServiceImpl(BookRepository bookRepository, AuthorRepository authorRepository) {
         this.bookRepository = bookRepository;
         this.authorRepository = authorRepository;
-        this.countryRepository = countryRepository;
     }
 
     @Override

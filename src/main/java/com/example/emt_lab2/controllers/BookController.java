@@ -13,7 +13,8 @@ import java.util.EnumSet;
 import java.util.List;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:3000")
+//@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = "https://library-frontend-191232.herokuapp.com/")
 @RequestMapping(value = {"/", "/books"})
 
 public class BookController {
